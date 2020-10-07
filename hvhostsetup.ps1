@@ -59,18 +59,21 @@ Copy-Item $bootIMG $dst
 Add-Content $logfile -Value  "Starting $VMN"
 Start-vm -Name $VMN
 }
+
+
 $logfile = "f:\APProvision.log"
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+####### Import Modules 
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 Install-Module Subnet -Force
 Install-Module WindowsAutoPilotIntune -Force
 Install-Module Microsoft.Graph.Intune -Force
 Install-Module -Name 7Zip4Powershell -RequiredVersion 1.9.0 -Force
-
 Add-Content $logfile -Value "Modules Imported"
 
-
+###### Create Hyper-V infrastructure 
 New-VMSwitch -Name "NestedSwitch" -SwitchType Internal
 
 $NIC1IP = Get-NetIPAddress | Where-Object -Property AddressFamily -EQ IPv4 | Where-Object -Property IPAddress -EQ $NIC1IPAddress
@@ -95,55 +98,46 @@ cmd.exe /c "netsh routing ip add persistentroute dest=$($VirtualNetwork.NetworkA
 
 Get-Disk | Where-Object -Property PartitionStyle -EQ "RAW" | Initialize-Disk -PartitionStyle GPT -PassThru | New-Volume -FileSystem NTFS -AllocationUnitSize 65536 -DriveLetter F -FriendlyName "Hyper-V"
 
-Add-Content $logfile -Value "Hyper-V infra Created"
+Add-Content $logfile -Value "Hyper-V infra created"
 
 
-
-$vmname = "Win10AutoPilot04"
+####### Download and extract Gold image
+########################################
+$vmname = "Win10AutoPilot01"
 $workfolder = "f:\VMs"
-
-
-$imageUrl = "https://dwsarmtemplates.blob.core.windows.net/301-nestedvm/boot-gold.7z"
+$imageUrl = "https://gabim101templates.blob.core.windows.net/images/boot-gold.7z"
 $imageFile ="f:\VMs\bootgold.7z"
 
 New-Item -ItemType Directory -Path $workfolder -Force
 Set-Location $workfolder
-
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-#Invoke-WebRequest -Uri $imageUrl -OutFile $imageFile
-
 (New-Object System.Net.WebClient).DownloadFile($imageUrl, $imageFile)
-
-
-
-
 Expand-7Zip -ArchiveFileName $imageFile -TargetPath $workfolder
 
+######## Create autopilot nested VM
+###################################
 Create-VM -bootIMG "F:\VMs\boot-gold.vhdx" -VMN $vmname
-
 Add-Content $logfile -Value "VM Created"
 
+
+####### Import Modules 
+######################
 Import-Module -Name WindowsAutoPilotIntune -ErrorAction Stop
 Import-Module -Name Microsoft.Graph.Intune 
 $user="marco"
-$pass ='Mon2$ane'
+$pass ='@MegaP@$$W0rd!%&'
 $secpassword = ConvertTo-SecureString $pass -AsPlainText -Force
-
-
-
 $localcred = New-Object -TypeName System.Management.Automation.PSCredential ( $user, $secpassword)
-
-
-
-
 $authority = "https://login.windows.net/$Tenant"
 
-
+######## Connect to MS Graph
+############################
 Update-MSGraphEnvironment -AppId $ClientID -Quiet
 Update-MSGraphEnvironment -AuthUrl $authority -Quiet
 Connect-MSGraph -ClientSecret $ClientSecret -Quiet
 
 
+####### Get a PS Session with the nested VM
+###########################################
 
 $session =$null
 while ( $session -eq $null) {
@@ -153,13 +147,18 @@ while ( $session -eq $null) {
     Start-Sleep -Seconds 60 
 }
 
+
+######## Get HWInfo from the nested VM
+######################################
+
 $d =Invoke-Command -Session $session -command  { c:\powershell\get-ap-info.ps1 }  
 Add-AutoPilotImportedDevice  -serialNumber $d.'Device Serial Number' -hardwareIdentifier $d.'Hardware Hash' -orderIdentifier "VMs"
 Start-Sleep 20
 
 Add-Content $logfile -Value  $d.'Device Serial Number'
 
-#### wait for autopilot data to propagate in intune
+#### Import AutoPilot Device in Intune
+######################################
 $impdev = $null 
 while ( $impdev -eq $null ){
 try{
@@ -177,7 +176,8 @@ Invoke-AutopilotSync
 Start-Sleep -Seconds 120 
 }
 
-
+#### Wait for AP profile to be assigned 
+#######################################
 
 $ProfileAssigned ="notAssigned"
 while (($ProfileAssigned -like "notAssigned") -or ($ProfileAssigned -like "*pending*")){
@@ -192,6 +192,6 @@ while (($ProfileAssigned -like "notAssigned") -or ($ProfileAssigned -like "*pend
 
 Add-Content $logfile -Value "Profile assigned"
 
-### Finaly the wait came to an end. We can wipe the device :D:D
+### reset the nested autopilot device 
  Write-Output "Invoking remote wipe of $VMName"
 Invoke-Command -Session $session -command  { c:\powershell\startwipe.bat } 
