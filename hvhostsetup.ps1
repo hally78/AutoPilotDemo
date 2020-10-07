@@ -135,10 +135,9 @@ $localcred = New-Object -TypeName System.Management.Automation.PSCredential ( $u
 
 
 
-#$tenant = "M365x109052.onmicrosoft.com"
+
 $authority = "https://login.windows.net/$Tenant"
-#$clId = "63a066c9-59ca-4ef6-834e-d440fdd57bba"
-#$clientSecret = "KAxKD_W_BIj~5y3046SW4__~lT_P-f6ES1"
+
 
 Update-MSGraphEnvironment -AppId $ClientID -Quiet
 Update-MSGraphEnvironment -AuthUrl $authority -Quiet

@@ -15,19 +15,19 @@
       }
     },
 	 "ClientID": {
-      "value": "63a066c9-59ca-4ef6-834e-d440fdd57bba",
+      "value": "Your Client ID Here",
       "metadata": {
         "description": "App Registration ClientID"
       }
     },
 	 "ClientSecret": {
-      "value": "KAxKD_W_BIj~5y3046SW4__~lT_P-f6ES1",
+      "value": "Your Client Secret Here",
       "metadata": {
         "description": "App Registration Secret"
       }
     },
 	"Tenant": {
-      "value": "M365x109052.onmicrosoft.com",
+      "value": "Your Tenant here",
       "metadata": {
         "description": "Tenant Name"
       }
