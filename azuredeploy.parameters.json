@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "HostAdminUserName": {
+      "value": "GEN-UNIQUE",
+      "metadata": {
+        "description": "Admin Username for the Host Virtual Machine"
+      }
+    },
+    "HostAdminPassword": {
+      "value": "GEN-PASSWORD",
+      "metadata": {
+        "description": "Admin User Password for the Host Virtual Machine"
+      }
+    },
+	 "ClientID": {
+      "value": "63a066c9-59ca-4ef6-834e-d440fdd57bba",
+      "metadata": {
+        "description": "App Registration ClientID"
+      }
+    },
+	 "ClientSecret": {
+      "value": "KAxKD_W_BIj~5y3046SW4__~lT_P-f6ES1",
+      "metadata": {
+        "description": "App Registration Secret"
+      }
+    },
+	"Tenant": {
+      "value": "M365x109052.onmicrosoft.com",
+      "metadata": {
+        "description": "Tenant Name"
+      }
+    }
+  }
+}
