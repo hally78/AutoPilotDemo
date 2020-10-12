@@ -7,7 +7,7 @@
       "metadata": {
         "description": "The base URI where artifacts required by this template are located including a trailing '/'"
       },
-      "defaultValue": "https://gabim101templates.blob.core.windows.net/images/"
+      "defaultValue": "https://raw.githubusercontent.com/gabim101/AutoPilotDemo/master/"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
