@@ -6,7 +6,8 @@ param (
     [string]$VirtualNetworkPrefix,
     [string]$ClientID,
     [string]$ClientSecret,
-    [string]$Tenant
+    [string]$Tenant,
+	[string]$imageUrl
 )
 
 function Create-VM {
@@ -105,7 +106,6 @@ Add-Content $logfile -Value "Hyper-V infra created"
 ########################################
 $vmname = "Win10AutoPilot01"
 $workfolder = "f:\VMs"
-$imageUrl = "https://gabim101templates.blob.core.windows.net/images/boot-gold.7z"
 $imageFile ="f:\VMs\bootgold.7z"
 
 New-Item -ItemType Directory -Path $workfolder -Force

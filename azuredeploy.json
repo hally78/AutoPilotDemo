@@ -189,6 +189,13 @@
       },
 	  "defaultValue": ""
 	},
+	"imageUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "URL to the compressed gold image"
+      },
+	  "defaultValue": ""
+	},
 	"Tenant": {
       "type": "string",
       "metadata": {
@@ -575,7 +582,7 @@
           "fileUris": [
             "[variables('HVHostSetupScriptUri')]"
           ],
-          "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File hvhostsetup.ps1 -NIC1IPAddress ', reference(parameters('HostNetworkInterface1Name')).ipconfigurations[0].properties.privateIPAddress, ' -NIC2IPAddress ', reference(parameters('HostNetworkInterface2Name')).ipconfigurations[0].properties.privateIPAddress, ' -GhostedSubnetPrefix ', parameters('ghostedSubnetPrefix'), ' -ClientID ', parameters('ClientID'), ' -ClientSecret ', parameters('ClientSecret'), ' -Tenant ', parameters('Tenant'), ' -VirtualNetworkPrefix ', parameters('virtualNetworkAddressPrefix'))]"
+          "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File hvhostsetup.ps1 -NIC1IPAddress ', reference(parameters('HostNetworkInterface1Name')).ipconfigurations[0].properties.privateIPAddress, ' -NIC2IPAddress ', reference(parameters('HostNetworkInterface2Name')).ipconfigurations[0].properties.privateIPAddress, ' -GhostedSubnetPrefix ', parameters('ghostedSubnetPrefix'), ' -ClientID ', parameters('ClientID'), ' -ClientSecret ', parameters('ClientSecret'), ' -Tenant ', parameters('Tenant'), ' -imageUrl ', parameters('imageUrl'),' -VirtualNetworkPrefix ', parameters('virtualNetworkAddressPrefix'))]"
         }
       }
     }
