@@ -173,7 +173,7 @@
       "metadata": {
         "description": "Admin User Password for the Host Virtual Machine"
       },
-	  "defaultValue": "@Parolagrea!"
+	  "defaultValue": ""
     },
 	"ClientID": {
       "type": "string",
