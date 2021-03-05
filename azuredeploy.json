@@ -7,7 +7,7 @@
       "metadata": {
         "description": "The base URI where artifacts required by this template are located including a trailing '/'"
       },
-      "defaultValue": "C:\\Users\\hally\\Documents\\GitHub\\AutoPilotDemo"
+      "defaultValue": "https://github.com/hally78/AutoPilotDemo"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
