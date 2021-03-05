@@ -166,14 +166,14 @@
       "metadata": {
         "description": "Admin Username for the Host Virtual Machine"
       },
-	  "defaultValue": "CPS Device Local Admin"
+	  "defaultValue": "CPSAdmin"
 	},
     "HostAdminPassword": {
       "type": "secureString",
       "metadata": {
         "description": "Admin User Password for the Host Virtual Machine"
       },
-	  "defaultValue": "CP5P4551!"
+	  "defaultValue": "Aut0p1lotm3"
     },
 	"ClientID": {
       "type": "string",
