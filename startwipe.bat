@@ -1,0 +1,1 @@
+c:\powershell\psexec.exe -i -s -accepteula  c:\powershell\start-command.bat
