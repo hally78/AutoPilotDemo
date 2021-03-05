@@ -7,7 +7,7 @@
       "metadata": {
         "description": "The base URI where artifacts required by this template are located including a trailing '/'"
       },
-      "defaultValue": "https://raw.githubusercontent.com/gabim101/AutoPilotDemo/master/"
+      "defaultValue": "C:\\Users\\hally\\Documents\\GitHub\\AutoPilotDemo"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
@@ -166,42 +166,42 @@
       "metadata": {
         "description": "Admin Username for the Host Virtual Machine"
       },
-	  "defaultValue": "marco"
+	  "defaultValue": "CPS Device Local Admin"
 	},
     "HostAdminPassword": {
       "type": "secureString",
       "metadata": {
         "description": "Admin User Password for the Host Virtual Machine"
       },
-	  "defaultValue": ""
+	  "defaultValue": "CP5P4551!"
     },
 	"ClientID": {
       "type": "string",
       "metadata": {
         "description": "App Registration ClientID"
       },
-	  "defaultValue": ""
+	  "defaultValue": "1ac7c29e-e991-43e5-b8ab-d8313cabe059"
 	},
 	"ClientSecret": {
       "type": "string",
       "metadata": {
         "description": "App Registration ClientSecret"
       },
-	  "defaultValue": ""
+	  "defaultValue": "1622ffe1-1c8f-4234-9069-7b5e77a87dfc"
 	},
 	"imageUrl": {
       "type": "string",
       "metadata": {
         "description": "URL to the compressed gold image"
       },
-	  "defaultValue": ""
+	  "defaultValue": "https://eucintunestorage.blob.core.windows.net/goldimage/goldimage.7z"
 	},
 	"Tenant": {
       "type": "string",
       "metadata": {
         "description": "Tenant Name"
       },
-	  "defaultValue": ""
+	  "defaultValue": "Crown Prosecution Service"
 	}
   },
   "variables": {
