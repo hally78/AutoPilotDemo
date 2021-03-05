@@ -173,7 +173,7 @@
       "metadata": {
         "description": "Admin User Password for the Host Virtual Machine"
       },
-	  "defaultValue": "Aut0p1lotm3"
+	  "defaultValue": "Aut0p1lot_m3"
     },
 	"ClientID": {
       "type": "string",
